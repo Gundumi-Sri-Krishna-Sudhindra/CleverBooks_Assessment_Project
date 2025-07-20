@@ -17,7 +17,7 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
   @WebSocketServer()
   server: Server;
 
-  private connectedUsers = new Map<string, string>(); // userId -> socketId
+  private connectedUsers = new Map<string, string>();
 
   handleConnection(client: Socket) {
     console.log(`Client connected: ${client.id}`);
@@ -25,8 +25,6 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
 
   handleDisconnect(client: Socket) {
     console.log(`Client disconnected: ${client.id}`);
-    
-    // Remove user from connected users
     for (const [userId, socketId] of this.connectedUsers.entries()) {
       if (socketId === client.id) {
         this.connectedUsers.delete(userId);
@@ -49,7 +47,6 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
     console.log(`User ${userId} left`);
   }
 
-  // Method to send follow notification
   sendFollowNotification(followedUserId: string, followerName: string) {
     const socketId = this.connectedUsers.get(followedUserId);
     if (socketId) {
@@ -61,7 +58,6 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
     }
   }
 
-  // Method to send post creation notification to followers
   sendPostCreationNotification(followers: string[], authorName: string) {
     followers.forEach(followerId => {
       const socketId = this.connectedUsers.get(followerId);

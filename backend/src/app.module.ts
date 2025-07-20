@@ -11,15 +11,10 @@ import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
-    // Configuration
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    
-    // Database
     MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/social_media_app'),
-    
-    // Redis & BullMQ
     BullModule.forRoot({
       redis: {
         host: process.env.REDIS_HOST || 'localhost',
@@ -27,16 +22,12 @@ import { NotificationsModule } from './notifications/notifications.module';
         password: process.env.REDIS_PASSWORD || undefined,
       },
     }),
-    
-    // Rate Limiting
     ThrottlerModule.forRoot([
       {
-        ttl: 60000, // 1 minute
-        limit: 1000, // 1000 requests per minute (global)
+        ttl: 60000,
+        limit: 1000,
       },
     ]),
-    
-    // Feature modules
     AuthModule,
     UsersModule,
     PostsModule,

@@ -16,7 +16,6 @@ export class PostsService {
   ) {}
 
   async createPost(createPostDto: CreatePostDto, userId: string) {
-    // Add job to queue with 5-second delay
     await this.postQueue.add(
       'create-post',
       {
@@ -24,7 +23,7 @@ export class PostsService {
         author: userId,
       },
       {
-        delay: 5000, // 5 seconds delay
+        delay: 5000, 
       },
     );
 
@@ -62,11 +61,9 @@ export class PostsService {
   }
 
   async getTimeline(userId: string) {
-    // Get user's following list
     const user = await this.postModel.db.models.User.findById(userId);
     const followingIds = user?.following || [];
 
-    // Get posts from followed users, sorted by newest first
     const posts = await this.postModel
       .find({
         author: { $in: followingIds },

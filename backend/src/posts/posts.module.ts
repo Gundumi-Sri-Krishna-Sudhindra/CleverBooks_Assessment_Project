@@ -18,8 +18,8 @@ import { NotificationsModule } from '../notifications/notifications.module';
     ThrottlerModule.forRoot([
       {
         name: 'post-creation',
-        ttl: 60000, // 1 minute
-        limit: 60, // 60 requests per minute per user
+        ttl: 60000,  
+        limit: 60,  
       },
     ]),
     NotificationsModule,

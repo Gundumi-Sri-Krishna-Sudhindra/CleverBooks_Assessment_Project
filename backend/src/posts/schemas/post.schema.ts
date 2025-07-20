@@ -23,7 +23,7 @@ export class Post {
 
 export const PostSchema = SchemaFactory.createForClass(Post);
 
-// Indexes for better query performance
+ 
 PostSchema.index({ author: 1, createdAt: -1 });
 PostSchema.index({ createdAt: -1 });
 PostSchema.index({ title: 'text', description: 'text' }); 
