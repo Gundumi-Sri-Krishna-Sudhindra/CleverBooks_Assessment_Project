@@ -1,0 +1,45 @@
+### Test API Endpoints
+
+### 1. Health Check
+GET http://localhost:5000/api/health
+
+### 2. Sign Up
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123",
+  "name": "Test User"
+}
+
+### 3. Sign In
+POST http://localhost:5000/api/auth/signin
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### 4. Create Post (requires auth token)
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "title": "My First Post",
+  "description": "This is my first post on the social media app!"
+}
+
+### 5. Get Timeline (requires auth token)
+GET http://localhost:5000/api/posts/timeline
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### 6. Follow User (requires auth token)
+POST http://localhost:5000/api/users/follow/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### 7. Unfollow User (requires auth token)
+POST http://localhost:5000/api/users/unfollow/USER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE 
